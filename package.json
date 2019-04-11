@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "iframe wrapper for Docz playground",
   "main": "index.js",
+  "keywords": ["docz", "iframe", "playground", "docs"],
   "scripts": {
     "start": "docz dev",
     "build": "docz build"
