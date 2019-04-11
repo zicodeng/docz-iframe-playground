@@ -1,0 +1,39 @@
+.container {
+  height: 100px;
+  color: white;
+  background-color: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
+
+@media only screen and (max-width : 1200px) {
+  .container {
+    background-color: yellow;
+  }
+}
+
+@media only screen and (max-width : 992px) {
+  .container {
+    background-color: blue;
+  }
+}
+
+@media only screen and (max-width : 768px) {
+  .container {
+    background-color: green;
+  }
+}
+
+@media only screen and (max-width : 480px) {
+  .container {
+    background-color: orange;
+  }
+}
+
+@media only screen and (max-width : 320px) {
+  .container {
+    background-color: pink;
+  }
+}

@@ -1,0 +1,21 @@
+---
+name: MyComponent
+---
+
+import { Playground, PropsTable } from 'docz';
+
+import MyComponent from './MyComponent';
+import IFramePlayground from '..';
+
+## MyComponent Demo
+
+<Playground>
+  <MyComponent text="Not Using IFramePlayground" />
+  <IFramePlayground>
+    <MyComponent text="Using IFramePlayground" />
+  </IFramePlayground>
+</Playground>
+
+## MyComponent Props
+
+<PropsTable of={MyComponent} />
