@@ -1,10 +1,11 @@
 {
   "name": "docz-iframe-playground",
   "version": "1.0.0",
-  "description": "",
+  "description": "iframe wrapper for Docz playground",
   "main": "index.js",
   "scripts": {
-    "start": "docz dev"
+    "start": "docz dev",
+    "build": "docz build"
   },
   "repository": {
     "type": "git",
