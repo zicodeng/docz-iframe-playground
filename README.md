@@ -11,7 +11,9 @@ This project aims to solve the issue by using `<iframe>`
 
 ## Demo
 
-https://zicodeng.github.io/docz-iframe-playground/
+<img src="demo.gif" width="600">
+
+Playground: https://zicodeng.github.io/docz-iframe-playground/
 
 ## Installation
 
