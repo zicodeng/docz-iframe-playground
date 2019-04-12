@@ -1,14 +1,14 @@
 {
-  "app.js": "/docz-iframe-playground/static/js/app.b30b1355.js",
-  "app.js.map": "/docz-iframe-playground/static/js/app.99bc610dee093d84e5f4.js.map",
-  "runtime~app.js": "/docz-iframe-playground/static/js/runtime~app.99bc610dee093d84e5f4.js",
-  "runtime~app.js.map": "/docz-iframe-playground/static/js/runtime~app.99bc610dee093d84e5f4.js.map",
-  "test-my-component.css": "/docz-iframe-playground/static/css/test-my-component.99bc610dee093d84e5f4.css",
-  "test-my-component.js": "/docz-iframe-playground/static/js/test-my-component.2cc773ac.js",
-  "test-my-component.js.map": "/docz-iframe-playground/static/js/test-my-component.99bc610dee093d84e5f4.js.map",
+  "app.js": "/docz-iframe-playground/static/js/app.d15456cc.js",
+  "app.js.map": "/docz-iframe-playground/static/js/app.6d18048570bfccd4f4e1.js.map",
+  "runtime~app.js": "/docz-iframe-playground/static/js/runtime~app.6d18048570bfccd4f4e1.js",
+  "runtime~app.js.map": "/docz-iframe-playground/static/js/runtime~app.6d18048570bfccd4f4e1.js.map",
+  "test-my-component.css": "/docz-iframe-playground/static/css/test-my-component.6d18048570bfccd4f4e1.css",
+  "test-my-component.js": "/docz-iframe-playground/static/js/test-my-component.0d40aaef.js",
+  "test-my-component.js.map": "/docz-iframe-playground/static/js/test-my-component.6d18048570bfccd4f4e1.js.map",
   "vendors.js": "/docz-iframe-playground/static/js/vendors.5e65d85c.js",
-  "vendors.js.map": "/docz-iframe-playground/static/js/vendors.99bc610dee093d84e5f4.js.map",
+  "vendors.js.map": "/docz-iframe-playground/static/js/vendors.6d18048570bfccd4f4e1.js.map",
   "static/js/4.dedcc1c4.js": "/docz-iframe-playground/static/js/4.dedcc1c4.js",
-  "static/js/4.99bc610dee093d84e5f4.js.map": "/docz-iframe-playground/static/js/4.99bc610dee093d84e5f4.js.map",
+  "static/js/4.6d18048570bfccd4f4e1.js.map": "/docz-iframe-playground/static/js/4.6d18048570bfccd4f4e1.js.map",
   "index.html": "/docz-iframe-playground/index.html"
 }
