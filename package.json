@@ -1,6 +1,6 @@
 {
   "name": "docz-iframe-playground",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "iframe wrapper for Docz playground",
   "main": "./dist/index.min.js",
   "keywords": [
