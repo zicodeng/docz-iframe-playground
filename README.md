@@ -1,4 +1,4 @@
-# IFramePlayground
+# Docz IFrame Playground
 
 The default Docz `<Playground>` is really cool, but it does not serve your components in an **isolated browsing context**. This means your components live in a shared document environment with the Docz theme
 
