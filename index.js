@@ -5,6 +5,7 @@ class IFramePlayground extends React.Component {
   ref = React.createRef(); // <iframe> ref
   state = {
     container: null, // container within which the user content should be rendered
+    height: 0, // iframe height
   };
 
   /**
@@ -12,23 +13,31 @@ class IFramePlayground extends React.Component {
    * Styles in parent browsing context will not be available to <iframe> content,
    * we need to manually copy styles from parent browsing context to <iframe> browsing context
    */
-  copyStyles = () => {
-    const iFrameNode = this.ref.current;
-    if (iFrameNode && iFrameNode.contentDocument) {
-      // Copy <link> elements
-      const links = Array.from(document.getElementsByTagName('link'));
-      links.forEach(link => {
-        if (link.rel === 'stylesheet') {
-          iFrameNode.contentDocument.head.appendChild(link.cloneNode(true));
-        }
-      });
+  copyStyles = iFrameNode => {
+    // Copy <link> elements
+    const links = Array.from(document.getElementsByTagName('link'));
+    links.forEach(link => {
+      if (link.rel === 'stylesheet') {
+        iFrameNode.contentDocument.head.appendChild(link.cloneNode(true));
+      }
+    });
 
-      // Copy <style> elements
-      const styles = Array.from(document.head.getElementsByTagName('style'));
-      styles.forEach(style => {
-        iFrameNode.contentDocument.head.appendChild(style.cloneNode(true));
-      });
-    }
+    // Copy <style> elements
+    const styles = Array.from(document.head.getElementsByTagName('style'));
+    styles.forEach(style => {
+      iFrameNode.contentDocument.head.appendChild(style.cloneNode(true));
+    });
+  };
+
+  updateHeight = iFrameNode => {
+    const children = Array.from(iFrameNode.contentDocument.body.childNodes);
+    const height = children.reduce(
+      (prevVal, child) => prevVal + child.offsetHeight,
+      0,
+    );
+    this.setState({
+      height,
+    });
   };
 
   handleLoad = () => {
@@ -41,13 +50,14 @@ class IFramePlayground extends React.Component {
       this.setState({
         container: iFrameNode.contentDocument.body,
       });
-      this.copyStyles();
+      this.copyStyles(iFrameNode);
+      this.updateHeight(iFrameNode);
     }
   };
 
   render() {
     const { children, style } = this.props;
-    const { container } = this.state;
+    const { container, height } = this.state;
     const iFrameNode = this.ref.current;
     return (
       <iframe
@@ -55,6 +65,7 @@ class IFramePlayground extends React.Component {
         ref={this.ref}
         srcDoc={'<!DOCTYPE html>'}
         style={{
+          height,
           width: '100%',
           border: 'none',
           ...style,
