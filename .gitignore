@@ -2,3 +2,4 @@ node_modules
 yarn-error.log
 .docz
 dist
+.DS_Store
