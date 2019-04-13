@@ -25,25 +25,37 @@ yarn add -D docz-iframe-playground
 
 ```mdx
 ---
-name: MyComponent
+name: IFramePlayground
+route: /
 ---
 
 import { Playground, PropsTable } from 'docz';
-import IFramePlayground from 'docz-iframe-playground';
 
-import MyComponent from './MyComponent';
+import IFramePlayground from './../src/IFramePlayground';
+import TestComponent from './TestComponent';
 
-## MyComponent Demo
+# IFramePlayground
+
+## Demo
+
+### You can nest `<IFramePlayground>` under `<Playground>`
 
 <Playground>
-  <MyComponent text="Not Using IFramePlayground" />
+  <TestComponent title="Not Using IFramePlayground" />
   <IFramePlayground>
-    <MyComponent text="Using IFramePlayground" />
+    <TestComponent title="Using IFramePlayground" />
   </IFramePlayground>
 </Playground>
 
-## MyComponent Props
+### You can also use standalone `<IFramePlayground>`
 
-<PropsTable of={MyComponent} />
+Make sure to turn on `enableResizing`
 
+<IFramePlayground enableResizing>
+  <TestComponent title="Using IFramePlayground" />
+</IFramePlayground>
+
+## API
+
+<PropsTable of={IFramePlayground} />
 ```
