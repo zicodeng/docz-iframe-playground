@@ -1,0 +1,16 @@
+.header {
+  margin: 40px 0;
+  font-family: "Playfair Display", serif;
+  position: relative;
+  display: flex;
+}
+
+.title {
+  font-size: 60px;
+}
+
+.version {
+  color:  #0B5FFF;
+  font-size: 20px;
+  margin-top: 20px;
+}
