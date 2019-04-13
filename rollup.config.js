@@ -7,8 +7,8 @@ import { terser } from 'rollup-plugin-terser';
 import pkg from './package.json';
 
 export default {
-  input: './src/index.js',
-  output: { file: 'dist/index.min.js', format: 'esm' },
+  input: './src/IFramePlayground.jsx',
+  output: { file: 'dist/IFramePlayground.min.js', format: 'esm' },
   plugins: [
     replace({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),

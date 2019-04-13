@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 
-import styles from './index.css';
+import styles from './IFramePlayground.css';
 const cx = classNames.bind(styles);
 
 class IFramePlayground extends React.Component {
