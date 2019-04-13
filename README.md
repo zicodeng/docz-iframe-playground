@@ -42,7 +42,7 @@ import TestComponent from './TestComponent';
 
 <Playground>
   <TestComponent title="Not Using IFramePlayground" />
-  <IFramePlayground>
+  <IFramePlayground style={{ marginTop: 50 }}>
     <TestComponent title="Using IFramePlayground" />
   </IFramePlayground>
 </Playground>
@@ -52,7 +52,7 @@ import TestComponent from './TestComponent';
 Make sure to turn on `enableResizing`
 
 <IFramePlayground enableResizing>
-  <TestComponent title="Using IFramePlayground" />
+  <TestComponent title="Using IFramePlayground" height="100%" />
 </IFramePlayground>
 
 ## API
