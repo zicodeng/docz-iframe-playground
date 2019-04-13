@@ -39,11 +39,24 @@ class IFramePlayground extends React.Component {
 
   /** Once <iframe> is fully loaded, we can then determine its size */
   setSize = iFrameNode => {
-    const { enableResizing, minHeight } = this.props;
+    const {
+      enableResizing,
+      minWidth,
+      minHeight,
+      maxWidth,
+      maxHeight,
+    } = this.props;
 
     // Determine width
     const parentNode = iFrameNode.parentNode;
-    const width = enableResizing ? parentNode.offsetWidth : '100%';
+    const parentWidth = parentNode.offsetWidth;
+    const width = enableResizing
+      ? width < minWidth
+        ? minWidth
+        : maxWidth && parentWidth > maxWidth
+        ? maxWidth
+        : parentWidth
+      : '100%';
 
     // Determine height
     const children = Array.from(iFrameNode.contentDocument.body.children);
@@ -54,7 +67,12 @@ class IFramePlayground extends React.Component {
 
     this.setState({
       width,
-      height: height < minHeight ? minHeight : height,
+      height:
+        height < minHeight
+          ? minHeight
+          : maxHeight && height > maxHeight
+          ? maxHeight
+          : height,
     });
   };
 
@@ -84,25 +102,31 @@ class IFramePlayground extends React.Component {
   };
 
   handleResize = e => {
-    const { minWidth, minHeight } = this.props;
+    const { minWidth, minHeight, maxWidth, maxHeight } = this.props;
     const { direction, width, height } = this.state;
 
     if (direction === 'vertical') {
       const newHeight = height + e.movementY;
       this.setState({
-        height: newHeight < minHeight ? minHeight : newHeight,
+        height:
+          newHeight < minHeight
+            ? minHeight
+            : maxHeight && newHeight > maxHeight
+            ? maxHeight
+            : newHeight,
       });
     } else {
       const iFrameNode = this.ref.current;
       if (iFrameNode) {
         const newWidth = width + e.movementX;
-        const maxWidth = iFrameNode.parentNode.parentNode.offsetWidth;
+        const newMaxWidth =
+          maxWidth || iFrameNode.parentNode.parentNode.offsetWidth;
         this.setState({
           width:
             newWidth < minWidth
               ? minWidth
-              : newWidth > maxWidth
-              ? maxWidth
+              : newWidth > newMaxWidth
+              ? newMaxWidth
               : newWidth,
         });
       }
@@ -127,6 +151,8 @@ class IFramePlayground extends React.Component {
       enableResizing,
       minWidth,
       minHeight,
+      maxWidth,
+      maxHeight,
       style,
       ...restProps
     } = this.props;
@@ -139,6 +165,8 @@ class IFramePlayground extends React.Component {
           ...style,
           minWidth,
           minHeight,
+          maxWidth,
+          maxHeight,
         }}
         {...restProps}
       >
@@ -200,12 +228,17 @@ IFramePlayground.propTypes = {
   enableResizing: PropTypes.bool,
   minWidth: PropTypes.number,
   minHeight: PropTypes.number,
+  /** If not provided, default to parent container width */
+  maxWidth: PropTypes.number,
+  maxHeight: PropTypes.number,
 };
 
 IFramePlayground.defaultProps = {
   enableResizing: false,
   minWidth: 200,
   minHeight: 200,
+  maxWidth: null,
+  maxHeight: null,
 };
 
 export default IFramePlayground;
