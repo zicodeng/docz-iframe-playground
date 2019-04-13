@@ -1,0 +1,32 @@
+---
+name: IFramePlayground
+route: /
+---
+
+import { Playground, PropsTable } from 'docz';
+
+import IFramePlayground from './../src/IFramePlayground';
+import TestComponent from './TestComponent';
+
+## IFramePlayground Demo
+
+### You can nest `<IFramePlayground>` under `<Playground>`
+
+<Playground>
+  <TestComponent title="Not Using IFramePlayground" />
+  <IFramePlayground>
+    <TestComponent title="Using IFramePlayground" />
+  </IFramePlayground>
+</Playground>
+
+### You can also use standalone `<IFramePlayground>`
+
+Make sure to turn on `enableResizing`
+
+<IFramePlayground enableResizing>
+  <TestComponent title="Using IFramePlayground" />
+</IFramePlayground>
+
+## IFramePlayground Props
+
+<PropsTable of={IFramePlayground} />

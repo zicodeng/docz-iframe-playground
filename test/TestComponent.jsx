@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import styles from './MyComponent.css';
+import styles from './TestComponent.css';
 
-const MyComponent = ({ text }) => (
+const TestComponent = ({ title }) => (
   <div className={styles.container}>
-    <h2>{text}</h2>
+    <h2>{title}</h2>
     <p>
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa
       reprehenderit porro fuga, quas aliquid quia. Labore nostrum autem
@@ -40,8 +40,8 @@ const MyComponent = ({ text }) => (
   </div>
 );
 
-MyComponent.propTypes = {
-  text: PropTypes.string,
+TestComponent.propTypes = {
+  title: PropTypes.string,
 };
 
-export default MyComponent;
+export default TestComponent;
