@@ -1,11 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
+import classNames from 'classnames/bind';
+
+import styles from './index.css';
+const cx = classNames.bind(styles);
 
 class IFramePlayground extends React.Component {
   ref = React.createRef(); // <iframe> ref
   state = {
     container: null, // container within which the user content should be rendered
+    width: 0, // iframe width
     height: 0, // iframe height
+    isResizing: false, // is the user currently resizing IFramePlayground?
+    direction: 'horizontal', // resizing direction
   };
 
   /**
@@ -29,13 +37,23 @@ class IFramePlayground extends React.Component {
     });
   };
 
-  updateHeight = iFrameNode => {
-    const children = Array.from(iFrameNode.contentDocument.body.childNodes);
-    const height = children.reduce(
-      (prevVal, child) => prevVal + child.offsetHeight,
+  /** Once <iframe> is fully loaded, we can then determine its size */
+  setSize = iFrameNode => {
+    const { enableResizing } = this.props;
+
+    // Determine width
+    const parentNode = iFrameNode.parentNode;
+    const width = enableResizing ? parentNode.offsetWidth : '100%';
+
+    // Determine height
+    const childNodes = Array.from(iFrameNode.contentDocument.body.childNodes);
+    const height = childNodes.reduce(
+      (prevVal, childNode) => prevVal + childNode.offsetHeight,
       0,
     );
+
     this.setState({
+      width,
       height,
     });
   };
@@ -51,31 +69,90 @@ class IFramePlayground extends React.Component {
         container: iFrameNode.contentDocument.body,
       });
       this.copyStyles(iFrameNode);
-      this.updateHeight(iFrameNode);
+      this.setSize(iFrameNode);
     }
   };
 
+  handleResizeStart = (e, direction) => {
+    e.preventDefault();
+    window.addEventListener('mousemove', this.handleResize);
+    window.addEventListener('mouseup', this.handleResizeStop);
+    this.setState({
+      isResizing: true,
+      direction,
+    });
+  };
+
+  handleResize = e => {
+    const { minWidth, minHeight } = this.props;
+    const { direction, width, height } = this.state;
+    if (direction === 'vertical') {
+      const newHeight = height + e.movementY;
+      this.setState({
+        height: newHeight < minHeight ? minHeight : newHeight,
+      });
+    } else {
+      const newWidth = width + e.movementX;
+      this.setState({
+        width: newWidth < minWidth ? minWidth : newWidth,
+      });
+    }
+  };
+
+  handleResizeStop = () => {
+    this.removeEventListeners();
+    this.setState({
+      isResizing: false,
+    });
+  };
+
+  removeEventListeners = () => {
+    window.removeEventListener('mousemove', this.handleResize);
+    window.removeEventListener('mouseup', this.handleResizeStop);
+  };
+
   render() {
-    const { children, style } = this.props;
-    const { container, height } = this.state;
+    const { children, style, enableResizing } = this.props;
+    const { container, width, height, isResizing } = this.state;
     const iFrameNode = this.ref.current;
     return (
-      <iframe
-        sandbox="allow-same-origin"
-        ref={this.ref}
-        srcDoc={'<!DOCTYPE html>'}
-        style={{
-          height,
-          width: '100%',
-          border: 'none',
-          ...style,
-        }}
-      >
-        {container &&
-          iFrameNode &&
-          iFrameNode.contentDocument &&
-          ReactDOM.createPortal(children, container)}
-      </iframe>
+      <div className={cx('playground')}>
+        <iframe
+          sandbox="allow-same-origin"
+          ref={this.ref}
+          srcDoc={'<!DOCTYPE html>'}
+          className={cx('iframe')}
+          style={{
+            width,
+            height,
+            pointerEvents: isResizing ? 'none' : 'all',
+            ...style,
+          }}
+        >
+          {container &&
+            iFrameNode &&
+            iFrameNode.contentDocument &&
+            ReactDOM.createPortal(children, container)}
+        </iframe>
+        {enableResizing && (
+          <React.Fragment>
+            <div
+              className={cx('resize-controller', 'height-resize-controller')}
+              onMouseDown={e => this.handleResizeStart(e, 'vertical')}
+              style={{
+                width,
+              }}
+            />
+            <div
+              className={cx('resize-controller', 'width-resize-controller')}
+              onMouseDown={e => this.handleResizeStart(e, 'horizontal')}
+              style={{
+                left: width,
+              }}
+            />
+          </React.Fragment>
+        )}
+      </div>
     );
   }
 
@@ -85,6 +162,26 @@ class IFramePlayground extends React.Component {
       iFrameNode.addEventListener('load', this.handleLoad);
     }
   }
+
+  componentWillMount() {
+    this.removeEventListeners();
+  }
 }
+
+IFramePlayground.propTypes = {
+  /**
+   * If enabled, resize controller will be available.
+   * You can use it to control `<frame>` viewport size instead of using Docz Playground resize controller
+   * */
+  enableResizing: PropTypes.bool,
+  minWidth: PropTypes.number,
+  minHeight: PropTypes.number,
+};
+
+IFramePlayground.defaultProps = {
+  enableResizing: false,
+  minWidth: 200,
+  minHeight: 200,
+};
 
 export default IFramePlayground;
