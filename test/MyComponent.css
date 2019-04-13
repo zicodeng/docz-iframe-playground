@@ -1,7 +1,7 @@
 .container {
   height: 200px;
-  color: white;
-  background-color: red;
+  color: #78909C;
+  background-color: #FF1744;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -13,30 +13,60 @@
 
 @media only screen and (max-width : 1200px) {
   .container {
-    background-color: yellow;
+    background-color: #651FFF;
+  }
+}
+
+@media only screen and (max-height : 1200px) {
+   .container {
+    color: #F50057;
   }
 }
 
 @media only screen and (max-width : 992px) {
   .container {
-    background-color: blue;
+    background-color: #00B0FF;
+  }
+}
+
+@media only screen and (max-height : 992px) {
+  .container {
+    color: #3D5AFE;
   }
 }
 
 @media only screen and (max-width : 768px) {
   .container {
-    background-color: green;
+    background-color: #00E676;
+  }
+}
+
+@media only screen and (max-height : 768px) {
+  .container {
+    color: #00E5FF;
   }
 }
 
 @media only screen and (max-width : 480px) {
   .container {
-    background-color: orange;
+    background-color: #FFEA00;
+  }
+}
+
+@media only screen and (max-height : 480px) {
+  .container {
+    color: #76FF03;
   }
 }
 
 @media only screen and (max-width : 320px) {
   .container {
-    background-color: pink;
+    background-color: #FF3D00;
+  }
+}
+
+@media only screen and (max-height : 320px) {
+  .container {
+    color: #FFC400;
   }
 }
