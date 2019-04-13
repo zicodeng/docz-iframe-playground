@@ -32,9 +32,10 @@ route: /
 import { Playground, PropsTable } from 'docz';
 
 import IFramePlayground from './../src/IFramePlayground';
+import Header from './../helpers/Header';
 import TestComponent from './TestComponent';
 
-# IFramePlayground
+<Header />
 
 ## Demo
 
