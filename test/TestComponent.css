@@ -1,11 +1,10 @@
 .container {
-  height: 200px;
+  min-height: 300px;
   color: #78909C;
   background-color: #FF1744;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 50px 0;
   padding: 20px;
   border: 20px solid black;
   overflow: auto;

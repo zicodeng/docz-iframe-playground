@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 import styles from './TestComponent.css';
 
-const TestComponent = ({ title }) => (
-  <div className={styles.container}>
+const TestComponent = ({ title, height }) => (
+  <div className={styles.container} style={{ height }}>
     <h2>{title}</h2>
     <p>
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa
@@ -41,7 +41,12 @@ const TestComponent = ({ title }) => (
 );
 
 TestComponent.propTypes = {
+  height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   title: PropTypes.string,
+};
+
+TestComponent.defaultProps = {
+  height: 300,
 };
 
 export default TestComponent;

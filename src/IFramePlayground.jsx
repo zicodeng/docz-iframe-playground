@@ -39,22 +39,22 @@ class IFramePlayground extends React.Component {
 
   /** Once <iframe> is fully loaded, we can then determine its size */
   setSize = iFrameNode => {
-    const { enableResizing } = this.props;
+    const { enableResizing, minHeight } = this.props;
 
     // Determine width
     const parentNode = iFrameNode.parentNode;
     const width = enableResizing ? parentNode.offsetWidth : '100%';
 
     // Determine height
-    const childNodes = Array.from(iFrameNode.contentDocument.body.childNodes);
-    const height = childNodes.reduce(
-      (prevVal, childNode) => prevVal + childNode.offsetHeight,
+    const children = Array.from(iFrameNode.contentDocument.body.children);
+    const height = children.reduce(
+      (prevVal, child) => prevVal + child.offsetHeight,
       0,
     );
 
     this.setState({
       width,
-      height,
+      height: height < minHeight ? minHeight : height,
     });
   };
 
@@ -86,16 +86,26 @@ class IFramePlayground extends React.Component {
   handleResize = e => {
     const { minWidth, minHeight } = this.props;
     const { direction, width, height } = this.state;
+
     if (direction === 'vertical') {
       const newHeight = height + e.movementY;
       this.setState({
         height: newHeight < minHeight ? minHeight : newHeight,
       });
     } else {
-      const newWidth = width + e.movementX;
-      this.setState({
-        width: newWidth < minWidth ? minWidth : newWidth,
-      });
+      const iFrameNode = this.ref.current;
+      if (iFrameNode) {
+        const newWidth = width + e.movementX;
+        const maxWidth = iFrameNode.parentNode.parentNode.offsetWidth;
+        this.setState({
+          width:
+            newWidth < minWidth
+              ? minWidth
+              : newWidth > maxWidth
+              ? maxWidth
+              : newWidth,
+        });
+      }
     }
   };
 
@@ -112,11 +122,26 @@ class IFramePlayground extends React.Component {
   };
 
   render() {
-    const { children, style, enableResizing } = this.props;
+    const {
+      children,
+      enableResizing,
+      minWidth,
+      minHeight,
+      style,
+      ...restProps
+    } = this.props;
     const { container, width, height, isResizing } = this.state;
     const iFrameNode = this.ref.current;
     return (
-      <div className={cx('playground')}>
+      <div
+        className={cx('playground')}
+        style={{
+          ...style,
+          minWidth,
+          minHeight,
+        }}
+        {...restProps}
+      >
         <iframe
           sandbox="allow-same-origin"
           ref={this.ref}
@@ -126,7 +151,6 @@ class IFramePlayground extends React.Component {
             width,
             height,
             pointerEvents: isResizing ? 'none' : 'all',
-            ...style,
           }}
         >
           {container &&
