@@ -52,7 +52,7 @@ import TestComponent from './TestComponent';
 
 Make sure to turn on `enableResizing`
 
-<IFramePlayground enableResizing>
+<IFramePlayground enableResizing maxHeight={800}>
   <TestComponent title="Using IFramePlayground" height="100%" />
 </IFramePlayground>
 
