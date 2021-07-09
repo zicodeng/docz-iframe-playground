@@ -1,5 +1,5 @@
 {
-  "name": "docz-iframe-playground",
+  "name": "docz-tradeshift-playground",
   "version": "1.0.9",
   "description": "iframe wrapper for Docz playground",
   "main": "./dist/IFramePlayground.min.js",
@@ -17,14 +17,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zicodeng/docz-iframe-playground.git"
+    "url": "git+https://github.com/tstapleton/docz-tradeshift-playground.git"
   },
-  "author": "Zico Deng",
+  "author": "tstapleton",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/zicodeng/docz-iframe-playground/issues"
+    "url": "https://github.com/tstapleton/docz-tradeshift-playground/issues"
   },
-  "homepage": "https://github.com/zicodeng/docz-iframe-playground#readme",
+  "homepage": "https://github.com/tstapleton/docz-tradeshift-playground#readme",
   "peerDependencies": {
     "docz": "^0.13.7",
     "docz-theme-default": "^0.13.7",

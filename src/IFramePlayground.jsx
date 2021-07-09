@@ -37,6 +37,17 @@ class IFramePlayground extends React.Component {
     });
   };
 
+  addTradeshiftUI = iFrameNode => {
+    const tradeshiftStyles = document.createElement('link');
+    tradeshiftStyles.rel = 'stylesheet';
+    tradeshiftStyles.href = '//d5wfroyti11sa.cloudfront.net/prod/client/ts-12.6.0.min.css';
+    iFrameNode.contentDocument.head.appendChild(tradeshiftStyles);
+
+    const tradeshiftScript = document.createElement('script');
+    tradeshiftScript.src = '//d5wfroyti11sa.cloudfront.net/prod/client/ts-12.6.0.min.js';
+    iFrameNode.contentDocument.head.appendChild(tradeshiftScript);
+  }
+
   /** Once <iframe> is fully loaded, we can then determine its size */
   setSize = iFrameNode => {
     const {
@@ -76,6 +87,24 @@ class IFramePlayground extends React.Component {
     });
   };
 
+  buildContainer = (body) => {
+    const app = document.createElement('div');
+    app.dataset.ts = 'App';
+    const main = document.createElement('div');
+    main.dataset.ts = 'Main';
+    const content = document.createElement('div');
+    content.dataset.ts = 'Content';
+    const panel = document.createElement('div');
+    panel.dataset.ts = 'Panel';
+
+    content.appendChild(panel);
+    main.appendChild(content);
+    app.appendChild(main);
+    body.appendChild(app);
+
+    return panel;
+  }
+
   handleLoad = () => {
     const iFrameNode = this.ref.current;
     if (
@@ -84,9 +113,10 @@ class IFramePlayground extends React.Component {
       iFrameNode.contentDocument.body
     ) {
       this.setState({
-        container: iFrameNode.contentDocument.body,
+        container: this.buildContainer(iFrameNode.contentDocument.body),
       });
       this.copyStyles(iFrameNode);
+      this.addTradeshiftUI(iFrameNode);
       this.setSize(iFrameNode);
     }
   };
@@ -171,7 +201,6 @@ class IFramePlayground extends React.Component {
         {...restProps}
       >
         <iframe
-          sandbox="allow-same-origin"
           ref={this.ref}
           srcDoc={'<!DOCTYPE html>'}
           className={cx('iframe')}
